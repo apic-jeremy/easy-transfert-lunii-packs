@@ -1,0 +1,56 @@
+.cardPack {
+    box-shadow: 0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;
+    max-width: 200px
+}
+
+.disabledCard {
+    background-color: grey;
+    opacity: 0.6;
+}
+
+.buttonAction {
+    margin: 8px 8px 8px 0;
+}
+
+.formPacks {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto
+}
+
+.divPacks {
+    display: inline-grid;
+    margin: 10px;
+}
+
+.header {
+    width: 100%;
+    background-color: lightgrey;
+}
+
+.divRepport {
+    border: gray 1px solid;
+    >ul {
+        max-height: 200px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.divStatus {
+    border: gray 1px solid;
+    display: flex;
+    align-items: center;
+    >div {
+        display: flex;
+        padding: 8px;
+
+        &:first-child {
+            margin-left: auto;
+        }
+        &:last-child {
+            margin-right: auto;
+        }
+    }
+    
+}
