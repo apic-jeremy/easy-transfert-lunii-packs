@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   filterValues = {
     name: "",
     showSelected: false,
-    showDisabled: false,
+    showDisabled: true,
   }
   
   constructor(private api: ApiService, private toastr: ToastrService, private datePipe: DatePipe){

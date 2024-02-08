@@ -1,8 +1,9 @@
 {
   "name": "easy-transfert-lunii-packs",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "start /min /wait cmd /c studio-web-ui\\update-official-img.bat",
     "start": "ng serve --port 4400",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
