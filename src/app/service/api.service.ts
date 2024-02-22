@@ -27,9 +27,15 @@ import { LuniiModel } from "../model/lunii.model";
         });
     }
 
-    public pushStorie(_uuid: string, _path: string) {
+    public pushStory(_uuid: string, _path: string) {
         return this.http.post<any>("http://localhost:8080/api/device/addFromLibrary", 
             JSON.stringify({uuid: _uuid, path: _path})
+        );
+    }
+
+    public removeStory(_uuid: string) {
+        return this.http.post<any>("http://localhost:8080/api/device/removeFromDevice", 
+            JSON.stringify({uuid: _uuid})
         );
     }
 

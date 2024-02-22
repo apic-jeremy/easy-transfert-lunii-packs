@@ -15,10 +15,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {TextFieldModule} from '@angular/cdk/text-field'; 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { MatInputModule } from '@angular/material/input';
     TextFieldModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

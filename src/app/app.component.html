@@ -5,6 +5,7 @@
         <button mat-raised-button class="buttonAction" (click)="changeSelectionAll(true)" [disabled]="loading" color="primary"><mat-icon>done_all</mat-icon>Select All</button>
         <button mat-raised-button class="buttonAction" (click)="changeSelectionAll(false)" [disabled]="loading" color="primary"><mat-icon>remove_done</mat-icon>Unselect All</button>
         <button mat-raised-button class="buttonAction" (click)="pushPacks()" color="warn" [disabled]="!lunii?.plugged || loading || countSelectedPacks() < 1 || rapportForm.get('nameFilter')?.value !== ''"><mat-icon>cloud_sync</mat-icon>PUSH PACK</button>
+        <button mat-raised-button class="buttonAction" (click)="removePacks()" color="warn" [disabled]="!lunii?.plugged || loading" ><mat-icon>delete</mat-icon>PURGE LUNII</button>
         <mat-form-field>
             <mat-label>Recherche</mat-label>
             <input

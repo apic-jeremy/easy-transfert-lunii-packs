@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Purge de la Lunii</h1>
+<div mat-dialog-content>
+  Etes-vous sur ?
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>Confirmer</button>
+</div>

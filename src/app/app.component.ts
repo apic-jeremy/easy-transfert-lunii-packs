@@ -5,10 +5,11 @@ import { PackModel } from './model/pack.model';
 import EventBus from 'vertx3-eventbus-client';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { debounceTime, forkJoin } from 'rxjs';
-import { StoriesList, StoryNameEnum } from './constante/story-name.enum';
 import { RepportMessageModel } from './model/repport.model';
 import { DatePipe } from '@angular/common';
 import { LuniiModel } from './model/lunii.model';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 const eb = new EventBus("http://localhost:8080/eventbus");
 
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
     showDisabled: true,
   }
   
-  constructor(private api: ApiService, private toastr: ToastrService, private datePipe: DatePipe){
+  constructor(private api: ApiService, private toastr: ToastrService, private datePipe: DatePipe, public dialog: MatDialog){
   }
 
   ngOnInit() {
@@ -106,18 +107,13 @@ export class AppComponent implements OnInit {
     
           this.luniiPacksList = luniiPacks;
 
-          this.luniiPacksList.forEach(p => {
-            let siblingFind = 0;
-            getSiblingGuids(p.uuid).forEach(guid => {
-              const pack = this.libraryPacksList.find(p => p.uuid === guid);
+          this.luniiPacksList.forEach(lp => {
+              const pack = this.libraryPacksList.find(p => p.uuid === lp.uuid);
               if(pack){
-                siblingFind++;
                 pack.disabled = true;
+              } else {
+                this.unknownPack.push(lp);
               }
-            })
-            if(siblingFind === 0){
-              this.unknownPack.push(p);
-            }
           });         
 
           if(this.lunii?.plugged && this.libraryPacksList.every(p => p.disabled)){
@@ -182,7 +178,7 @@ export class AppComponent implements OnInit {
     for(let i = 0; i < packsToPush.length; i++){
       let p = packsToPush[i];
       this.rapportLog(p.title, `Ajout en cours (${i + 1}/${packsToPush.length})`, MessageTypeEnum.push);
-      await this.api.pushStorie(p.uuid, p.path).toPromise().then(async (s) => {
+      await this.api.pushStory(p.uuid, p.path).toPromise().then(async (s) => {
         await waitTransfert(s.transferId).then(() => {
           this.rapportLog(p.title, "Pack Ajouté", MessageTypeEnum.success);
         });
@@ -194,6 +190,39 @@ export class AppComponent implements OnInit {
     }
 
     this.reload();
+  }
+
+  async removePacks() {
+    if(!this.lunii?.plugged){
+      this.rapportLog("Lunii non connectée", "", MessageTypeEnum.error);
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '200px'
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        this.loading = true;
+        for(let i = 0; i < this.luniiPacksList.length; i++){
+          let p = this.luniiPacksList[i];
+          this.rapportLog(p.title, `Retrait en cours (${i + 1}/${this.luniiPacksList.length})`, MessageTypeEnum.push);
+          await this.api.removeStory(p.uuid).toPromise().then(async (s) => {
+              this.rapportLog(p.title, "Pack Retiré", MessageTypeEnum.success);
+          })
+          .catch((error) => {
+            this.rapportLog(error.message, "ERREUR", MessageTypeEnum.error);
+          });
+          this.toastr.clear(this.currentToaster?.toastId);
+        }
+
+        this.rapportLog("Purge terminée", "", MessageTypeEnum.success);    
+        this.reload();
+      } else {
+        this.rapportLog("Purge annulé", "", MessageTypeEnum.info);
+      }
+    });
   }
 
   rapportLog(message: string, title?: string, type?: MessageTypeEnum){
@@ -235,18 +264,4 @@ function waitTransfert(transferId: string): Promise<void> {
 
       eb.registerHandler(address, handler);
   });
-}
-
-function getKeyByValue<T>(object: Record<string, T[]>, value: T): string | undefined {
-  return Object.keys(object).find(key => object[key].includes(value));
-}
-
-export function getSiblingGuids(guid: string): string[] {
-  const foundStoryKey = getKeyByValue(StoriesList, guid) as StoryNameEnum | undefined;
-
-  if (foundStoryKey) {
-      return StoriesList[foundStoryKey];
-  }
-
-  return [];
 }

@@ -40,6 +40,7 @@ Au démarrage de la solution, ETLP va lancer le script [update-official-img.bat]
 - Bouton "**Select All**" : permet de sélectionner tous les packs affichés
 - Bouton "**Unselect All**" : permet de désélectionner tous les packs affichés
 - Bouton "**PUSH PACK**" : permet d'envoyer les packs sélectionnés vers la Lunii\* (disponible uniquement lorsqu'une Lunii\* est détectée, qu'il n'y a pas de recherche et qu'au moins un pack est sélectionné)
+- Bouton "**PURGE LUNII**" : permet de supprimer TOUS les packs présents sur la Lunii\* (disponible uniquement lorsqu'une Lunii\* est détectée)
 - Champ "**Recherche**" : permet de filtrer la liste des packs affichés
 - Coche "**Show selected (x)**" : permet d'afficher uniquement les packs sélectionnés, prenant en compte le champ "Recherche". (x) indique le nombre total de packs sélectionnés.
 - Coche "**Show disabled (x)**" : permet d'afficher les packs désactivés, sans prendre en compte le champ "Recherche". (x) indique le nombre total de packs désactivés.
@@ -52,7 +53,7 @@ Au démarrage de la solution, ETLP va lancer le script [update-official-img.bat]
 
 - "**Librairie (x)**" : indique si la bibliothèque STUdio\* est connectée (affiché en vert si OK, en rouge sinon). (x) indique le nombre de packs exploitables détectés.
 - Icône "**Rapport**" : permet d'afficher dans la console du navigateur le contenu de certaines variables. A destination des Devs.
-- "**Lunii** (x) + (y)" : indique si la Lunii\* est bien connectée (affiché en vert si OK, en rouge sinon). (x) indique le nombre de packs présents sur la Lunii\*. (y) indique le nombre de packs non connus (selon le matching du fichier [story-name.enum.ts](/src/app/constante/story-name.enum.ts)).
+- "**Lunii** (x) + (y)" : indique si la Lunii\* est bien connectée (affiché en vert si OK, en rouge sinon). (x) indique le nombre de packs présents sur la Lunii\*. (y) indique le nombre de packs non présents dans la bibliothèque STUdio\*.
 
 ### 3. Le bandeau de rapport
 
@@ -68,7 +69,7 @@ Au démarrage de la solution, ETLP va lancer le script [update-official-img.bat]
 
 ### 4. Le bandeau des packs
 
->Le bandeau affiche le contenu de la bibliothèque STUdio\*. Par défaut, les packs désactivés ne sont pas affichés. Seuls les packs au format 'fs' sont pris en charge.
+>Le bandeau affiche le contenu de la bibliothèque STUdio\*. Seuls les packs au format 'fs' sont pris en charge.
 
 ![Le bandeau des packs](/src/assets/readme/bandeau-packs.png)
 
@@ -77,7 +78,7 @@ Chaque pack est affiché dans une "card". Celle-ci comporte :
 - Un titre
 - Une image
 
->NB : Les packs sont désactivés s'il existe une version, officielle ou non, de ce pack sur la Lunii\* (selon le matching du fichier [story-name.enum.ts](/src/app/constante/story-name.enum.ts))
+>NB : Les packs sont désactivés s'il existe une version de ce pack sur la Lunii\*
 
 ## Prochaines étapes
 
