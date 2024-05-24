@@ -24,11 +24,17 @@ Si vous avez des questions, des suggestions à propos de l'utilisation de ETLP, 
 
 ETLP nécessite, pour le moment, un environnement de développement pour s'exécuter. Je vous recommande d'utiliser Visual Studio Code.
 
-Il nécessite également que le logiciel STUdio\* v1.3.1 (==> [GitHub](https://github.com/marian-m12l/studio)) soit en cours d'exécution.
+Il nécessite également que le logiciel STUdio\* v0.3.1 (==> [GitHub](https://github.com/marian-m12l/studio)) soit en cours d'exécution.
+
+>NB : Pour le moment, seules les version v0.3.1 et v0.3.2 de Marian fonctionnent. (Dantsu semble utiliser un autre protocol pour transferer les packs et celui-si n'eest pas encore pris en charge par ETLP).
+
+>Dans le cas d'une Lunii\* **V3**, il est nécessaire d'utiliser STUdio\* **v0.3.2**. Il n'existe à ce jour, pas de Release officielle de cette version. Mais vous pouvez la compiler vous-même en vous connectant au repos et en chargeant la branche "master".
 
 Ouvrez la solution et exécutez `npm start` pour lancer l'application. Puis, ouvrez votre navigateur sur [http://localhost:4400](http://localhost:4400).
 
 Au démarrage de la solution, ETLP va lancer le script [update-official-img.bat](/studio-web-ui/update-official-img.bat) permettant de mettre à jour les images officielles des packs. (fichier "db\official.json" utilisé par le logiciel STUdio\*)
+
+>NB : Le script a été désactivé pour le moment car la méthode d'authentification au server de Lunii\* semble avoir changée.
 
 ## Utilisation d'ETLP
 

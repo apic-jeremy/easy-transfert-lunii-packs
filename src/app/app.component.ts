@@ -161,11 +161,11 @@ export class AppComponent implements OnInit {
 
   exportPacksList(){
     console.log('LibraryPacksList')
-    console.log(this.libraryPacksList.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName})));
+    console.log(this.libraryPacksList.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName, version: p.version})));
     console.log('LuniiPacksList');
-    console.log(this.luniiPacksList.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName})));
+    console.log(this.luniiPacksList.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName, version: p.version})));
     console.log('UnknownLuniiPacksList');
-    console.log(this.unknownPack.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName, official: p.official})));
+    console.log(this.unknownPack.map(p => ({title: p.title, uuid: p.uuid, folder: p.folderName, official: p.official, version: p.version})));
   }
 
   async pushPacks() {
@@ -184,6 +184,7 @@ export class AppComponent implements OnInit {
         });
       })
       .catch((error) => {
+        console.log(error)
         this.rapportLog(error.message, "ERREUR", MessageTypeEnum.error);
       });
       this.toastr.clear(this.currentToaster?.toastId);
